@@ -67,10 +67,15 @@ const AddProductDrawer: ForwardRefRenderFunction<{ open(): void }> = (
         product_category_id: values.product_category_id,
       });
 
-      const photoData = await changePhoto(photo, data?.id);
-      data.productImages = photoData;
+      if (photo) {
+        const photoData = await changePhoto(photo, data?.id);
+        data.productImages = photoData;
+     
+        setPhoto(photoData);
+      }
+
       setProducts([...products, data]);
-      setPhoto(photoData);
+   
       Notification.success("Sucesso", "Produto cadastrado com sucesso");
 
       close();

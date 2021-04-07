@@ -93,8 +93,8 @@ const RegisterDrawer: ForwardRefRenderFunction<{ open(): void }> = (
         complement: values.complement,
         zipcode: values.zipcode,
         company_category_id: values.company_category_id,
-        has_delivery: values.has_delivery,
-        delivery_price: formatPriceToSave(values.delivery_price),
+        has_delivery: values.has_delivery ? true : false,
+        delivery_price: values.delivery_price ? formatPriceToSave(values.delivery_price) : 0,
       });
 
       const { data } = await login({
@@ -110,6 +110,7 @@ const RegisterDrawer: ForwardRefRenderFunction<{ open(): void }> = (
 
       close();
     } catch (error) {
+      console.log(error)
       Notification.error("Erro", error?.response?.data?.message);
     }
   };
