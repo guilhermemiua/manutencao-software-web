@@ -29,9 +29,12 @@ const ProductCategoryTable: FunctionComponent = () => {
     getData()
   }, [getData])
 
-
   const confirm = async (id: number) => {
     try {
+      await deleteProductCategory({ id })
+
+      setProductCategories(productCategories.filter(productCategory => productCategory.id !== id))
+
       Notification.success('Sucesso', 'Categoria deletada com sucesso')
     } catch (error) {
       Notification.error('Erro', error?.response?.data?.message)
