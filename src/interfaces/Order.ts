@@ -16,4 +16,5 @@ export default interface Order extends BaseInterface {
   order_products: OrderProduct[]
   status: 'waiting' | 'confirmed' | 'cancelled'
   user?: User
+  user_id: number
 }

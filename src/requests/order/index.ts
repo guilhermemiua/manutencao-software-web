@@ -12,11 +12,12 @@ const deleteOrder = async ({ id }: { id: number }) => {
   })
 }
 
-const updateOrderStatus = async ({ id, status }: { id: number, status: 'cancelled' | 'confirmed' }) => {
+const updateOrderStatus = async ({ id, status, user_id }: { id: number, status: 'cancelled' | 'confirmed', user_id: number }) => {
   const token = getToken()
 
   return api.put(`/orders/${id}/status`, {
-    status
+    status,
+    user_id
   }, {
     headers: {
       Authorization: `Bearer ${token}`

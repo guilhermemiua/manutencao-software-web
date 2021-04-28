@@ -25,7 +25,7 @@ import StyledTitle from "../../../components/StyledTitle";
 import Notification from "../../../helpers/notification";
 
 import { CompanyCategoryContext } from "../../../contexts/CompanyCategoryContext";
-import { getCompanyCategories, login, register } from "../../../requests";
+import { getCompanyCategories, login, register, getAddressByZipcode } from "../../../requests";
 import { CompanyContext } from "../../../contexts/CompanyContext";
 import { formatPriceToSave } from "../../../helpers/formatters";
 
@@ -47,6 +47,19 @@ const RegisterDrawer: ForwardRefRenderFunction<{ open(): void }> = (
   useImperativeHandle(ref, () => ({
     open,
   }));
+
+  const getAndSetAddress = async (zipcode: string) => {
+    if (zipcode.length > 7) {
+      const { data } = await getAddressByZipcode({ zipcode })
+
+      form.setFieldsValue({
+        street: data.logradouro,
+        city: data.localidade,
+        state: data.uf,
+        district: data.bairro
+      })
+    }
+  }
 
   const open = (): void => {
     setVisible(true);
@@ -311,7 +324,13 @@ const RegisterDrawer: ForwardRefRenderFunction<{ open(): void }> = (
               name="zipcode"
               rules={[{ required: true, message: "CEP é obrigatório" }]}
             >
-              <Input />
+              <Input onChange={(event) => {
+                getAndSetAddress(event.target.value)
+
+                form.setFieldsValue({
+                  zipcode: event.target.value
+                })
+              }}/>
             </Form.Item>
           </Col>
         </Row>

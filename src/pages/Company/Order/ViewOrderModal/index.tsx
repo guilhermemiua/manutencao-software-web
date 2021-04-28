@@ -45,7 +45,7 @@ const ViewOrderModal: ForwardRefRenderFunction<{ open(order: Order): void }> = (
   const cancel = async (): Promise<void> => {
     try {
       if (order) {
-        await updateOrderStatus({ id: order?.id, status: "cancelled" })
+        await updateOrderStatus({ id: order?.id, status: "cancelled", user_id: order?.user_id })
       }
 
       Notification.success('Sucesso', 'Pedido cancelado com sucesso')
@@ -59,7 +59,7 @@ const ViewOrderModal: ForwardRefRenderFunction<{ open(order: Order): void }> = (
   const confirm = async (): Promise<void> => {
     try {
       if (order) {
-        await updateOrderStatus({ id: order?.id, status: "confirmed" })
+        await updateOrderStatus({ id: order?.id, status: "confirmed", user_id: order?.user_id })
       }
 
       Notification.success('Sucesso', 'Pedido confirmado com sucesso')

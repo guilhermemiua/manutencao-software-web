@@ -37,6 +37,7 @@ const OrderPage: FunctionComponent = () => {
         <StyledTitle level={2}>Pedidos</StyledTitle>
         <Button type="primary" onClick={async () => {
           await getData()
+          Notification.success("Sucesso", "Os pedidos foram atualizados com sucesso!")
         }}>
           <PlusOutlined /> Atualizar Pedidos
         </Button>
